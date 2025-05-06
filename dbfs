@@ -1,0 +1,46 @@
+dfs
+graph = {
+'A': ['B', 'C'],
+'B': ['A', 'D', 'E'],
+'C': ['A', 'F',],
+'D': ['B'],
+'E': ['B', 'F'],
+'F': ['C', 'E']
+}
+def dfs(graph, start, visited=None):
+if visited is None:
+visited = set()
+visited.add(start)
+print(start, end=" ")
+for neighbour in graph[start]:
+if neighbour not in visited:
+dfs(graph, neighbour, visited)
+return visited
+print("DFS:")
+dfs(graph, 'A')
+
+bfs
+graph = {
+5: [3, 7],
+3: [2, 4],
+2: [],
+7: [9],
+4: [8],
+8: [],
+9: []
+}
+visited = []
+queue = []
+def bfs(visited, graph, node):
+visited.append(node)
+queue.append(node)
+while queue:
+s = queue.pop(0)
+print(s, end=" ")
+for neighbour in graph[s]:
+if neighbour not in visited:
+visited.append(neighbour)
+queue.append(neighbour)
+return visited 
+print("BFS:")
+bfs(visited, graph, 5)
