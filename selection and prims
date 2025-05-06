@@ -1,0 +1,66 @@
+selection sort
+num = int(input("Enter the number of students:"))
+arr = []
+print("Enter the mark of the students:")
+for i in range(num):
+print("Enter marks of student", i+1, ":", end=" ")
+ele = int(input())
+arr.append(ele)
+print("The unsorted list of marks is:", arr)
+print()
+def selection():
+for i in range(len(arr)-1):
+mval = arr[i]
+mind = i
+for j in range(i+1, len(arr)):
+if mval > arr[j]:
+mval = arr[j]
+mind = j
+if i != mind:
+arr[i], arr[mind] = arr[mind], arr[i]
+return arr
+print("Sorted List using Selection Sort:", selection())
+print() 
+
+prim's 
+import sys
+class PGraph:
+def init (self, vertices, graph):
+self.V = vertices
+self.graph = graph
+def minKey(self, key, mstSet):
+min = sys.maxsize
+for v in range(self.V):
+if key[v] < min and not mstSet[v]:
+min = key[v]
+min_index = v
+return min_index
+def primMST(self):
+key = [sys.maxsize] * self.V
+parent = [None] * self.V
+key[0] = 0
+mstSet = [False] * self.V
+parent[0] = -1
+for cout in range(self.V):
+u = self.minKey(key, mstSet)
+mstSet[u] = True
+for v in range(self.V):
+if self.graph[u][v] > 0 and not mstSet[v] and key[v] > self.graph[u][v]:
+key[v] = self.graph[u][v]
+parent[v] = u
+print('\nPrim’s Minimum Spanning Tree:\nEdge \tWeight')
+minimumCost = 0
+for i in range(1, self.V):
+print(f'{parent[i]} -- {i} == {self.graph[i][parent[i]]}')
+minimumCost += self.graph[i][parent[i]]
+print(f'Minimum cost = {minimumCost}')
+if name == " main ":
+graph = [
+[0, 2, 0, 6, 0],
+[2, 0, 3, 8, 5],
+[0, 3, 0, 0, 7],
+[6, 8, 0, 0, 9],
+[0, 5, 7, 9, 0]
+]
+g = PGraph(5, graph)
+g.primMST()
