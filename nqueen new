@@ -1,0 +1,27 @@
+N = int(input("Enter board size (N): "))
+board = [[0]*N for _ in range(N)]
+
+def isSafe(row, col):
+    for i in range(row):
+        if board[i][col] or \
+           (col - (row - i) >= 0 and board[i][col - (row - i)]) or \
+           (col + (row - i) < N and board[i][col + (row - i)]):
+            return False
+    return True
+
+def solve(row):
+    if row == N:
+        return True
+    for col in range(N):
+        if isSafe(row, col):
+            board[row][col] = 1
+            if solve(row + 1):
+                return True
+            board[row][col] = 0
+    return False
+
+if solve(0):
+    for row in board:
+        print(' '.join('Q' if c else '-' for c in row))
+else:
+    print("No solution exists")
