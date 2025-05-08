@@ -1,0 +1,47 @@
+# Graph and Heuristic data
+graph = {
+    'A': [('B', 1), ('C', 5)],
+    'B': [('D', 7)],
+    'C': [('D', 10)],
+    'D': []
+}
+
+heuristic = {'A': 6, 'B': 4, 'C': 2, 'D': 0}
+
+def astar(start, goal):
+    open_set = set([start])
+    closed_set = set()
+    g = {start: 0}
+    parents = {start: None}
+
+    while open_set:
+        current = min(open_set, key=lambda x: g[x] + heuristic[x])
+
+        if current == goal:
+            path = []
+            while current:
+                path.append(current)
+                current = parents[current]
+            return path[::-1]
+
+        open_set.remove(current)
+        closed_set.add(current)
+
+        for neighbor, cost in graph[current]:
+            if neighbor in closed_set:
+                continue
+            tentative_g = g[current] + cost
+
+            if neighbor not in open_set:
+                open_set.add(neighbor)
+            elif tentative_g >= g.get(neighbor, float('inf')):
+                continue
+
+            parents[neighbor] = current
+            g[neighbor] = tentative_g
+
+    return None
+
+# Run the A* algorithm
+path = astar('A', 'D')
+print("Path found:", path)
