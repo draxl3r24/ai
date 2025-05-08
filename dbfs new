@@ -1,0 +1,38 @@
+# Graph representation using adjacency list (undirected graph)
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'F'],
+    'D': ['B'],
+    'E': ['B', 'F'],
+    'F': ['C', 'E']
+}   
+
+# Recursive Depth First Search
+def dfs_recursive(graph, node, visited):
+    if node not in visited:
+        print(node, end=' ')
+        visited.add(node)
+        for neighbor in graph[node]:
+            dfs_recursive(graph, neighbor, visited)
+
+# Breadth First Search using a queue
+def bfs(graph, start_node):
+    visited = set()
+    queue = [start_node]
+
+    while queue:
+        node = queue.pop(0)
+        if node not in visited:
+            print(node, end=' ')
+            visited.add(node)
+            for neighbor in graph[node]:
+                if neighbor not in visited:
+                    queue.append(neighbor)
+
+# Call the DFS and BFS functions
+print("Depth First Search (Recursive):")
+dfs_recursive(graph, 'A', set())
+
+print("\nBreadth First Search (Iterative):")
+bfs(graph, 'A')
